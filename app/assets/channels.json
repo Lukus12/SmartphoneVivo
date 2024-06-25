@@ -1,0 +1,39 @@
+{
+  "channels": [
+    {
+      "name_ru": "Телекомпания НТВ",
+      "image": "https://assets-iptv2022.cdnvideo.ru/static/channel/10100/logo_256_1655385292.png",
+      "url": "https://mhd.iptv2022.com/p/NX9MVkKd-mdD_RxsMRB1vg,1719176402/streaming/ntvnn/324/1/index.m3u8"
+    },
+    {
+      "name_ru": "Звезда",
+      "image": "https://assets-iptv2022.cdnvideo.ru/static/channel/72/logo_256_1655448761.png",
+      "url": "https://mhd.iptv2022.com/p/_vuojahmIux8WA1RT4Y2AA,1719176402/streaming/zvezda/324/1/index.m3u8"
+    },
+    {
+      "name_ru": "Россия-1",
+      "image": "https://assets-iptv2022.cdnvideo.ru/static/channel/17389/logo_256_1684846706.png",
+      "url": "https://mhd.iptv2022.com/p/M5Z-bMfIGd5c-CIdxmkgmQ,1719176402/streaming/rossia1_test/324/1/index.m3u8"
+    },
+    {
+      "name_ru": "МИР",
+      "image": "https://assets-iptv2022.cdnvideo.ru/static/channel/88/logo_256_1655448812.png",
+      "url": "https://mhd.iptv2022.com/p/OCGxn_UlUNVSs-GxJmEfwg,1719176402/streaming/mirott/324/1/index.m3u8"
+    },
+    {
+      "name_ru": "Тест меток aws",
+      "image": null,
+      "url": "https://qa-lhd.ru/stream/custom_aws.m3u8"
+    },
+    {
+      "name_ru": "Тест меток datarange",
+      "image": null,
+      "url": "https://qa-lhd.ru/stream/custom_datarange.m3u8"
+    },
+    {
+      "name_ru": "ТВ ЦЕНТР - Москва",
+      "image": "https://assets-iptv2022.cdnvideo.ru/static/channel/17585/logo_256_1687343114.png",
+      "url": "https://mhd.iptv2022.com/p/jy70Z-huia-re7iutQIAZA,1719176402/streaming/tvc_test/324/1/index.m3u8"
+    }
+  ]
+}
