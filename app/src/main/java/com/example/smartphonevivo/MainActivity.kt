@@ -8,7 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.smartphonevivo.fragments.MainFragment
 
 class MainActivity : AppCompatActivity() {
-    //тест
+    //тест1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
