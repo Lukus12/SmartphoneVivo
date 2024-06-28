@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.activityViewModels
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.smartphonevivo.R
+import com.example.smartphonevivo.Item
+import com.example.smartphonevivo.MainViewModel
 import com.example.smartphonevivo.adapters.VpAdapter
 import com.example.smartphonevivo.databinding.FragmentMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -27,7 +29,10 @@ class MainFragment : Fragment() {
         "Все",
         "Избранные"
     )
+
     private lateinit var binding: FragmentMainBinding
+    private val model: MainViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,11 +65,7 @@ class MainFragment : Fragment() {
             Request.Method.GET,
             url,
             Response.Listener<String> { response ->
-                val obj = JSONObject(response)
-               /* val temp = obj.getJSONArray("channels")
-                val temp2 = temp.getJSONObject(2)
-                val tem3 = temp2.getString("url")*/
-                Log.d("MyLog","Response: $obj")
+                parseDate(response)
             },
             Response.ErrorListener { error ->
                 Log.d("MyLog","Error: ${error.message}")
@@ -76,6 +77,24 @@ class MainFragment : Fragment() {
             }
         }
         queue.add(stringRequest)
+    }
+
+    private fun parseDate(result: String):List<Item>{
+        val mainObject = JSONObject(result).getJSONArray("channels")
+        val list = ArrayList<Item>()
+        for (i in 0 until mainObject.length()) {
+            val channelObject = mainObject.getJSONObject(i)
+            val item = Item(
+                i,
+                channelObject.getString("name_ru"),
+                channelObject.getString("image"),
+                channelObject.getString("url")
+            )
+            list.add(item)
+        }
+        Log.d("MyLog","Request:$mainObject")
+        model.liveDataList.value = list
+        return list
     }
     companion object {
         @JvmStatic
