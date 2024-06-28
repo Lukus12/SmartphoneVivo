@@ -49,5 +49,10 @@ class ItemsAdapter(var items:List<Item>, var context:Context): RecyclerView.Adap
 
             context.startActivity(intent)
         } */
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, Player::class.java)
+            intent.putExtra("URL", items[position].url)
+            context.startActivity(intent)
+        }
     }
 }

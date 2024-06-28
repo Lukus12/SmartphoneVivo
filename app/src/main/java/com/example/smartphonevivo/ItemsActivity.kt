@@ -40,8 +40,8 @@ class ItemsActivity : AppCompatActivity() {
 
 
 
-        items.add(Item(1,"Телекомпания НТВ","https://assets-iptv2022.cdnvideo.ru/static/channel/10100/logo_256_1655385292.png","https://mhd.iptv2022.com/p/NX9MVkKd-mdD_RxsMRB1vg,1719176402/streaming/ntvnn/324/1/index.m3u8"))
-        items.add(Item(2,"Звезда","https://assets-iptv2022.cdnvideo.ru/static/channel/72/logo_256_1655448761.png","https://mhd.iptv2022.com/p/_vuojahmIux8WA1RT4Y2AA,1719176402/streaming/zvezda/324/1/index.m3u8"))
+        items.add(Item(1,"Телекомпания НТВ","https://assets-iptv2022.cdnvideo.ru/static/channel/10100/logo_256_1655385292.png","https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"))
+        items.add(Item(2,"Звезда","https://assets-iptv2022.cdnvideo.ru/static/channel/72/logo_256_1655448761.png",""))
 
 
         itemsList.layoutManager = LinearLayoutManager(this) // указываем в каком формате будут располагаться элементы дизайна
