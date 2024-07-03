@@ -6,21 +6,32 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.SearchView
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.smartphonevivo.Item
+import com.example.smartphonevivo.MainActivity
 import com.example.smartphonevivo.MainViewModel
+import com.example.smartphonevivo.R
+import com.example.smartphonevivo.adapters.ItemsAdapter
 import com.example.smartphonevivo.adapters.VpAdapter
 import com.example.smartphonevivo.databinding.FragmentMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.json.JSONObject
 
 
 class MainFragment : Fragment() {
+
     private val fList = listOf(
         AllFragment.newInstance(),
         FavouritesFragment.newInstance()
@@ -32,6 +43,10 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     private val model: MainViewModel by activityViewModels()
+
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +62,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         sendGetRequest()
+
     }
     //переключение вкладок
     private fun init()= with(binding){
@@ -56,6 +72,10 @@ class MainFragment : Fragment() {
             tab, pos -> tab.text = tList[pos]
         }.attach()
     }
+
+
+
+
     private fun sendGetRequest(){
         val url = "https://limeapi.online/api/playlist"
 
@@ -79,9 +99,16 @@ class MainFragment : Fragment() {
         queue.add(stringRequest)
     }
 
+
+
+
+
     private fun parseDate(result: String):List<Item>{
         val mainObject = JSONObject(result).getJSONArray("channels")
         val list = ArrayList<Item>()
+
+
+
         for (i in 0 until mainObject.length()) {
             val channelObject = mainObject.getJSONObject(i)
             val item = Item(
@@ -90,12 +117,55 @@ class MainFragment : Fragment() {
                 channelObject.getString("image"),
                 channelObject.getString("url")
             )
+
             list.add(item)
         }
+
+
         Log.d("MyLog","Request:$mainObject")
+
         model.liveDataList.value = list
+        searchCh(list)
         return list
     }
+
+
+    private fun searchCh(list: ArrayList<Item>) {
+        val arr = ArrayList<Item>()
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(qwe: String?): Boolean {
+                arr.clear()
+                for (item in list) {
+                    if (item.nameTV.contains(qwe.toString())) {
+                        arr.add(item)
+                        //Toast.makeText(activity, "$arr", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                model.searchCh.value = arr
+                //Toast.makeText(activity, "$arr", Toast.LENGTH_SHORT).show()
+                return false
+            }
+
+            override fun onQueryTextChange(zxc: String?): Boolean {
+               arr.clear()
+                for (item in list) {
+                    if (item.nameTV.contains(zxc.toString())) {
+                        arr.add(item)
+                    }
+                    //Toast.makeText(activity, "Поиск по содержанию", Toast.LENGTH_SHORT).show()
+
+                }
+                model.searchCh.value = arr
+                //Toast.makeText(activity, "$arr", Toast.LENGTH_SHORT).show()
+                return false
+            }
+
+        })
+    }
+
+
+
+
     companion object {
         @JvmStatic
         fun newInstance() = MainFragment()

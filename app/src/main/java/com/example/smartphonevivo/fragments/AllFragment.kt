@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smartphonevivo.Item
@@ -28,8 +30,19 @@ class AllFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initItemsListOne()
+
         //получаем отпаршеный список, когда прогружается вьюшка
-        model.liveDataList.observe(viewLifecycleOwner){
+        /*if (model.searchCh.value.isNullOrEmpty()) {
+            model.liveDataList.observe(viewLifecycleOwner){
+                initItemsListTwo(it)
+            }
+        }
+        else {
+            model.searchCh.observe(viewLifecycleOwner){
+                initItemsListTwo(it)
+            }
+        }*/
+        model.searchCh.observe(viewLifecycleOwner){
             initItemsListTwo(it)
         }
     }
@@ -41,7 +54,10 @@ class AllFragment : Fragment() {
 
     private fun initItemsListTwo(items:List<Item>) = with(binding){
         itemsList.adapter = ItemsAdapter(items)
+
     }
+
+
 
     companion object {
         @JvmStatic

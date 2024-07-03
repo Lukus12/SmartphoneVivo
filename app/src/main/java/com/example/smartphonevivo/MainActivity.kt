@@ -3,11 +3,14 @@ package com.example.smartphonevivo
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.smartphonevivo.fragments.MainFragment
 
 class MainActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,6 +24,7 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.placeHolder, MainFragment.newInstance())
             .commit()
+
     }
 
 }
