@@ -26,7 +26,7 @@ class AllFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
-
+    private val c = 1
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initItemsListOne()
@@ -42,7 +42,8 @@ class AllFragment : Fragment() {
                 initItemsListTwo(it)
             }
         }*/
-        model.searchCh.observe(viewLifecycleOwner){
+
+        model.liveDataList.observe(viewLifecycleOwner){
             initItemsListTwo(it)
         }
     }

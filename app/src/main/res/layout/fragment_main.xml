@@ -34,7 +34,8 @@
             <SearchView
                 android:id="@+id/search"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:queryHint="Введите название канала" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

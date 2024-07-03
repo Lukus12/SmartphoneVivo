@@ -16,6 +16,6 @@ class MainViewModel:ViewModel() {
     //val liveDataCurrent = MutableLiveData<Item>() //обновлене одного элемента
     val liveDataList = MutableLiveData<List<Item>>() //обновление списка элементов
 
-    val searchCh = MutableLiveData<List<Item>>()
+    //val searchCh = MutableLiveData<List<Item>>()
 
 }

@@ -136,12 +136,12 @@ class MainFragment : Fragment() {
             override fun onQueryTextSubmit(qwe: String?): Boolean {
                 arr.clear()
                 for (item in list) {
-                    if (item.nameTV.contains(qwe.toString())) {
+                    if (item.nameTV.toLowerCase().contains(qwe.toString().toLowerCase())) {
                         arr.add(item)
                         //Toast.makeText(activity, "$arr", Toast.LENGTH_SHORT).show()
                     }
                 }
-                model.searchCh.value = arr
+                model.liveDataList.value = arr
                 //Toast.makeText(activity, "$arr", Toast.LENGTH_SHORT).show()
                 return false
             }
@@ -149,13 +149,13 @@ class MainFragment : Fragment() {
             override fun onQueryTextChange(zxc: String?): Boolean {
                arr.clear()
                 for (item in list) {
-                    if (item.nameTV.contains(zxc.toString())) {
+                    if (item.nameTV.toLowerCase().contains(zxc.toString().toLowerCase())) {
                         arr.add(item)
                     }
                     //Toast.makeText(activity, "Поиск по содержанию", Toast.LENGTH_SHORT).show()
 
                 }
-                model.searchCh.value = arr
+                model.liveDataList.value = arr
                 //Toast.makeText(activity, "$arr", Toast.LENGTH_SHORT).show()
                 return false
             }
