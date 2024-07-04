@@ -1,21 +1,21 @@
-package com.example.smartphonevivo
+package com.example.smartphonevivo.adapters
 import com.squareup.picasso.Picasso
 
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.smartphonevivo.Item
+import com.example.smartphonevivo.R
 
 //класс, который подставляет в поля дизайна item_in_list значения из элементов списка Item из ItemsActivity
-class ItemsAdapter(var items:List<Item>, var context:Context): RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
+class ItemsAdapter(private var items:List<Item>): RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
 
     //view - это наш дизайн, например, item_in_list.xml
     class MyViewHolder(view:View): RecyclerView.ViewHolder(view){
+
         val image: ImageView = view.findViewById(R.id.item_list_image)
         val title: TextView = view.findViewById(R.id.item_list_title)
         val broadcast: TextView = view.findViewById(R.id.item_list_desc)

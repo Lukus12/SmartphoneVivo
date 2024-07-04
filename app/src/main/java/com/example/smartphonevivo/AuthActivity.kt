@@ -16,7 +16,7 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_auth)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.placeHolder)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -43,7 +43,7 @@ class AuthActivity : AppCompatActivity() {
                     Toast.makeText(this, "Пользователь $login авторизован", Toast.LENGTH_SHORT).show()
                     userLoginBd.text.clear()
                     userPassBd.text.clear()
-                    val intent = Intent(this, ItemsActivity::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }
                 else{
@@ -55,7 +55,7 @@ class AuthActivity : AppCompatActivity() {
 
         transToReg.setOnClickListener {
             //переход на другую страницу
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, RegActivity::class.java)
             startActivity(intent)
         }
     }

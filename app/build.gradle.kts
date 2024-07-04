@@ -36,8 +36,6 @@ android {
 }
 
 dependencies {
-    implementation("com.google.android.exoplayer:exoplayer:2.16.1")
-    implementation("com.google.android.exoplayer:extension-rtmp:2.16.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
