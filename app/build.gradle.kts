@@ -46,6 +46,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("com.google.android.exoplayer:extension-okhttp:2.19.1")
+    implementation("androidx.room:room-coroutines:2.1.0-alpha04")
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("com.android.volley:volley:1.2.1")
     implementation("androidx.fragment:fragment-ktx:1.8.0")
