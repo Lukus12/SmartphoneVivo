@@ -1,13 +1,14 @@
 package com.example.smartphonevivo
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import android.net.Uri
 import android.view.View
-import android.view.WindowManager
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.ui.PlayerView
+
 
 class Player : AppCompatActivity() {
     private lateinit var playerView: PlayerView
@@ -16,11 +17,6 @@ class Player : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.player)
-
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
 
         playerView = findViewById(R.id.player_view)
 
@@ -41,6 +37,12 @@ class Player : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_FULLSCREEN
                 )
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finish()
+            }
+        })
+
     }
 
     override fun onStop() {
@@ -51,10 +53,5 @@ class Player : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         exoPlayer.release()
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
     }
 }

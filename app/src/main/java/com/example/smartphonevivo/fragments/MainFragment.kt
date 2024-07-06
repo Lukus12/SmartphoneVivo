@@ -8,16 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.example.smartphonevivo.Item
 import com.example.smartphonevivo.MainViewModel
 import com.example.smartphonevivo.adapters.VpAdapter
 import com.example.smartphonevivo.databinding.FragmentMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import org.json.JSONObject
+import okhttp3.OkHttpClient
+import okhttp3.Response
+import okhttp3.Request
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MainFragment : Fragment() {
@@ -53,33 +56,55 @@ class MainFragment : Fragment() {
         val adapter = VpAdapter(activity as FragmentActivity, fList)
         vp.adapter = adapter
         TabLayoutMediator(tabLayout, vp){
-            tab, pos -> tab.text = tList[pos]
+                tab, pos -> tab.text = tList[pos]
         }.attach()
     }
-    private fun sendGetRequest(){
-        val url = "https://limeapi.online/api/playlist"
 
-        val queue = Volley.newRequestQueue(context)
+    /*
+     Вызов suspend-функции приостанавливает выполнение функции и позволяет потоку
+     выполнять другие действия. Через некоторое время приостановленная функция
+     может быть возобновлена в том же или другом потоке.
+    * */
+    private suspend fun makeRequest(url: String, client: OkHttpClient): Response {
+        val request = Request.Builder()
+            .url(url)
+            .header("X-Key", "fh3487klskhjk2fh782kjhsdi72knjwfk7i2efdjbm")
+            .build()
 
-        val stringRequest = object : StringRequest(
-            Request.Method.GET,
-            url,
-            Response.Listener<String> { response ->
-                parseDate(response)
-            },
-            Response.ErrorListener { error ->
-                Log.d("MyLog","Error: ${error.message}")
-            }) {
-            override fun getHeaders(): MutableMap<String, String> {
-                val headers = HashMap<String, String>()
-                headers["X-Key"] = "fh3487klskhjk2fh782kjhsdi72knjwfk7i2efdjbm"
-                return headers
-            }
+        return withContext(Dispatchers.IO) {
+            client.newCall(request).execute()
         }
-        queue.add(stringRequest)
     }
 
-    private fun parseDate(result: String):List<Item>{
+    private fun sendGetRequest() {
+        val url = "https://limeapi.online/api/playlist"
+        val client = OkHttpClient()
+
+        runBlocking {//запускает корутину и
+            // блокирует текущий поток до завершения всех запущенных корутин внутри
+
+            launch { // запускает новую корутину, которая выполняется параллельно
+                // с остальным кодом
+                try {
+                    val response = makeRequest(url, client)
+
+                    if (response.isSuccessful) {
+                        val responseBody = response.body?.string()
+                        responseBody?.let { parseData(it) }
+                    } else {
+                        // Обработка ошибки
+                        Log.d("MyLog", "Error: ${response.message}")
+                    }
+                } catch (e: Exception) {
+                    // Обработка исключений
+                    Log.e("MyLog", "Exception: ${e.message}")
+                }
+            }
+        }
+    }
+
+
+    private fun parseData(result: String):List<Item>{
         val mainObject = JSONObject(result).getJSONArray("channels")
         val list = ArrayList<Item>()
         for (i in 0 until mainObject.length()) {

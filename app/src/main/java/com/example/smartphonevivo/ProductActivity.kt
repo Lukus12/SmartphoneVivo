@@ -22,15 +22,15 @@ class ProductActivity : AppCompatActivity() {
             insets
         }
 
-       /* val image: ImageView = findViewById(R.id.item_list_image_product)
-        val title:TextView = findViewById(R.id.item_list_title_inside)
-        val text:TextView = findViewById(R.id.item_list_text_inside)*/
+        /* val image: ImageView = findViewById(R.id.item_list_image_product)
+         val title:TextView = findViewById(R.id.item_list_title_inside)
+         val text:TextView = findViewById(R.id.item_list_text_inside)*/
 
-       /* val imageId = intent.getIntExtra("itemImageId", -1)
-        title.text = intent.getStringExtra("itemTitle")
-        text.text = intent.getStringExtra("itemText")
+        /* val imageId = intent.getIntExtra("itemImageId", -1)
+         title.text = intent.getStringExtra("itemTitle")
+         text.text = intent.getStringExtra("itemText")
 
 
-        image.setImageResource(imageId)*/
+         image.setImageResource(imageId)*/
     }
 }
