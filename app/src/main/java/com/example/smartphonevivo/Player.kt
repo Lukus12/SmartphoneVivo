@@ -5,10 +5,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import android.net.Uri
 import android.view.View
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.ui.PlayerView
-
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.common.MediaItem
+import androidx.media3.ui.PlayerView
 
 class Player : AppCompatActivity() {
     private lateinit var playerView: PlayerView
@@ -16,7 +15,7 @@ class Player : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.player)
+        setContentView(R.layout.activity_player)
 
         playerView = findViewById(R.id.player_view)
 
@@ -28,7 +27,7 @@ class Player : AppCompatActivity() {
             val mediaItem = MediaItem.fromUri(Uri.parse(videoUrl))
             exoPlayer.setMediaItem(mediaItem)
             exoPlayer.prepare()
-            exoPlayer.playWhenReady = true
+            exoPlayer.play()
         }
 
         playerView.systemUiVisibility = (
@@ -47,7 +46,7 @@ class Player : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        exoPlayer.release()
+        exoPlayer.pause()
     }
 
     override fun onDestroy() {

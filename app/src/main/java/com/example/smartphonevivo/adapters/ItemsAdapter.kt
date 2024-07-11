@@ -43,18 +43,19 @@ class ItemsAdapter(private val context: Context, private var items: List<Item>):
 
 
 
-       /*holder.btnToProduct.setOnClickListener { //передача данных на другую активити
-            val intent = Intent(context, ProductActivity::class.java)
+        /*holder.btnToProduct.setOnClickListener { //передача данных на другую активити
+             val intent = Intent(context, ProductActivity::class.java)
 
-            intent.putExtra("itemImageId", imageId)
-            intent.putExtra("itemTitle", items[position].title)
-            intent.putExtra("itemText", items[position].text)
+             intent.putExtra("itemImageId", imageId)
+             intent.putExtra("itemTitle", items[position].title)
+             intent.putExtra("itemText", items[position].text)
 
-            context.startActivity(intent)
-        } */
+             context.startActivity(intent)
+         } */
         holder.itemView.setOnClickListener {
             val intent = Intent(context, Player::class.java)
-            intent.putExtra("URL", items[position].url)
+            val videoUrl = items[position].url
+            intent.putExtra("URL", videoUrl)
             context.startActivity(intent)
         }
     }
