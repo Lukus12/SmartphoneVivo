@@ -4,20 +4,25 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import android.net.Uri
-import android.view.View
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.common.MediaItem
 import androidx.media3.ui.PlayerView
-
+import androidx.annotation.OptIn
+import androidx.media3.common.util.UnstableApi
+import android.content.pm.ActivityInfo
+import android.view.View
 class Player : AppCompatActivity() {
     private lateinit var playerView: PlayerView
     private lateinit var exoPlayer: ExoPlayer
 
+    @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_player)
 
+        setContentView(R.layout.activity_player)
         playerView = findViewById(R.id.player_view)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
 
         exoPlayer = ExoPlayer.Builder(this).build()
         playerView.player = exoPlayer
@@ -36,8 +41,12 @@ class Player : AppCompatActivity() {
                         or View.SYSTEM_UI_FLAG_FULLSCREEN
                 )
 
+        playerView.controllerShowTimeoutMs = 3000
+        playerView.hideController()
+
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                exoPlayer.stop()
                 finish()
             }
         })
