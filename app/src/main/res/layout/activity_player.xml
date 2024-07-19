@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/root"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:keepScreenOn="true"
+android:background="@color/black"
+tools:context=".PlayerActivity">
+
+<androidx.media3.ui.PlayerView
+    android:id="@+id/player_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Player">
+    android:layout_gravity="center"
+    app:use_controller="true"
+    app:show_buffering="always"
+    app:show_previous_button ="false"
+    app:show_next_button ="false"
+    app:show_rewind_button="false"
+    app:show_fastforward_button="false" />
 
-    <androidx.media3.ui.PlayerView
-        android:id="@+id/player_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        app:use_controller="true"
-        app:show_buffering="never" />
-
-</LinearLayout>
+</FrameLayout>

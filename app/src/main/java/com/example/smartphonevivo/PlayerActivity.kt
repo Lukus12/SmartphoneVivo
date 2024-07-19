@@ -10,39 +10,40 @@ import androidx.media3.ui.PlayerView
 import androidx.annotation.OptIn
 import androidx.media3.common.util.UnstableApi
 import android.content.pm.ActivityInfo
-import android.view.View
-class Player : AppCompatActivity() {
+import android.view.WindowManager
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+
+class PlayerActivity : AppCompatActivity() {
     private lateinit var playerView: PlayerView
     private lateinit var exoPlayer: ExoPlayer
+    private lateinit var mWindowController: WindowInsetsControllerCompat
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_player)
-        playerView = findViewById(R.id.player_view)
 
+        playerView = findViewById(R.id.player_view)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
 
         exoPlayer = ExoPlayer.Builder(this).build()
         playerView.player = exoPlayer
-
-        val videoUrl = intent.getStringExtra("URL")
-        if (videoUrl != null) {
+        intent.getStringExtra("URL")?.let { videoUrl ->
             val mediaItem = MediaItem.fromUri(Uri.parse(videoUrl))
             exoPlayer.setMediaItem(mediaItem)
             exoPlayer.prepare()
             exoPlayer.play()
         }
 
-        playerView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        or View.SYSTEM_UI_FLAG_FULLSCREEN
-                )
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+        hideSystemUI()
 
-        playerView.controllerShowTimeoutMs = 3000
         playerView.hideController()
+        playerView.controllerShowTimeoutMs = 3000
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -50,7 +51,21 @@ class Player : AppCompatActivity() {
                 finish()
             }
         })
+    }
 
+    private fun hideSystemUI() {
+        mWindowController = WindowInsetsControllerCompat(window, window.decorView)
+        mWindowController.let {
+            it.hide(WindowInsetsCompat.Type.systemBars())
+            it.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            hideSystemUI()
+        }
     }
 
     override fun onStop() {

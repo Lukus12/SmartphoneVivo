@@ -1,5 +1,5 @@
 package com.example.smartphonevivo.adapters
-import com.example.smartphonevivo.Player
+import com.example.smartphonevivo.PlayerActivity
 import com.squareup.picasso.Picasso
 
 import android.content.Context
@@ -53,7 +53,7 @@ class ItemsAdapter(private val context: Context, private var items: List<Item>):
              context.startActivity(intent)
          } */
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, Player::class.java)
+            val intent = Intent(context, PlayerActivity::class.java)
             val videoUrl = items[position].url
             intent.putExtra("URL", videoUrl)
             context.startActivity(intent)
