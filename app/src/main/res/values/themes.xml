@@ -8,4 +8,8 @@
     </style>
 
     <style name="Theme.SmartphoneVivo" parent="Base.Theme.SmartphoneVivo" />
+
+    <style name="TrackSelectionDialogThemeOverlay" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="windowNoTitle">false</item>
+    </style>
 </resources>
