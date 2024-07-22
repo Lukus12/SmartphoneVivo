@@ -2,25 +2,31 @@ package com.example.smartphonevivo.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.smartphonevivo.Item
 import com.example.smartphonevivo.MainViewModel
 import com.example.smartphonevivo.adapters.VpAdapter
 import com.example.smartphonevivo.databinding.FragmentMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
-import org.json.JSONObject
-import okhttp3.OkHttpClient
-import okhttp3.Response
-import okhttp3.Request
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import org.json.JSONObject
+import java.io.IOException
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 
 class MainFragment : Fragment() {
@@ -35,6 +41,7 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     private val model: MainViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,7 +79,7 @@ class MainFragment : Fragment() {
             .build()
 
         return withContext(Dispatchers.IO) {
-            client.newCall(request).execute()
+            client.newCall(request).await() //"ожидаем" ответ на запрос, используя сопрограммы
         }
     }
 
@@ -80,26 +87,41 @@ class MainFragment : Fragment() {
         val url = "https://limeapi.online/api/playlist"
         val client = OkHttpClient()
 
-        runBlocking {//запускает корутину и
-            // блокирует текущий поток до завершения всех запущенных корутин внутри
+        lifecycleScope.launch {
+            try {
+                val response = makeRequest(url, client)
 
-            launch { // запускает новую корутину, которая выполняется параллельно
-                // с остальным кодом
-                try {
-                    val response = makeRequest(url, client)
-
-                    if (response.isSuccessful) {
-                        val responseBody = response.body?.string()
-                        responseBody?.let { parseData(it) }
-                    } else {
-                        // Обработка ошибки
-                        Log.d("MyLog", "Error: ${response.message}")
-                    }
-                } catch (e: Exception) {
-                    // Обработка исключений
-                    Log.e("MyLog", "Exception: ${e.message}")
+                if (response.isSuccessful) { // если ответ получен
+                    val responseBody = response.body?.string()
+                    responseBody?.let { parseData(it) }
+                } else {
+                    // Обработка ошибки
+                    Log.d("MyLog", "Error: ${response.message}")
                 }
+            } catch (e: Exception) {
+                // Обработка исключений
+                Log.e("MyLog", "Exception: ${e.message}")
             }
+        }
+    }
+
+    //создаем новую сопрограмму, которая поддерживает отмену и приостановку
+    private suspend fun Call.await(): Response = suspendCancellableCoroutine { cont ->
+        enqueue(object : Callback {
+            /* onResponse вызывается, когда запрос выполнен успешно,
+              а onFailure используется для обработки ошибок в случае неудачного
+              выполнения запроса. */
+            override fun onResponse(call: Call, response: Response) {
+                cont.resume(response) //возобновляем выполнение сопрограммы с полученным объектом response
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                cont.resumeWithException(e)
+            }
+        })
+
+        cont.invokeOnCancellation {//обработка отмены сопрограммы
+            cancel()
         }
     }
 

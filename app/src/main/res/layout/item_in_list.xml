@@ -35,14 +35,6 @@
             android:textStyle="bold"
             />
 
-        <TextView
-            android:id="@+id/item_list_desc"
-            android:layout_width="98dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="4dp"
-            android:textSize="15sp"
-            android:textColor="#FFFFFF"
-            android:text="TextView" />
 
     </LinearLayout>
 

@@ -18,7 +18,6 @@ class ItemsAdapter(private var items:List<Item>): RecyclerView.Adapter<ItemsAdap
 
         val image: ImageView = view.findViewById(R.id.item_list_image)
         val title: TextView = view.findViewById(R.id.item_list_title)
-        val broadcast: TextView = view.findViewById(R.id.item_list_desc)
     }
     // обрабока дизайна
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -35,7 +34,6 @@ class ItemsAdapter(private var items:List<Item>): RecyclerView.Adapter<ItemsAdap
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         //position автоматически увеличивается на 1, когда считывается новый элемент
         holder.title.text = items[position].nameTV
-        holder.broadcast.text = items[position].nameTV
         Picasso.get().load(items[position].imageURL).into(holder.image)
 
 
