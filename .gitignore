@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+# исключаем файл конфига 
+!build.gradle

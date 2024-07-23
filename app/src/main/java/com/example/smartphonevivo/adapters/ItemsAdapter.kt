@@ -32,6 +32,10 @@ class ItemsAdapter(private var items:List<Item>): RecyclerView.Adapter<ItemsAdap
         return items.count()
     }
 
+    companion object fafv {
+        var asd = ArrayList<Item>()
+    }
+
     //обращаемся к полям дизайна и устанавливаем значения
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         //position автоматически увеличивается на 1, когда считывается новый элемент
