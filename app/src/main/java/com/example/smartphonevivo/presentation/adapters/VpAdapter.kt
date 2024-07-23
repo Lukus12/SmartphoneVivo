@@ -1,4 +1,4 @@
-package com.example.smartphonevivo.adapters
+package com.example.smartphonevivo.presentation.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

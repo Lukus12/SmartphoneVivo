@@ -1,9 +1,10 @@
-package com.example.smartphonevivo
+package com.example.smartphonevivo.presentation
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.smartphonevivo.domain.models.User
 
 class DbHelper(val context: Context, val factory:SQLiteDatabase.CursorFactory? ) :
     SQLiteOpenHelper(context,"dbApp", factory, 1){
@@ -18,7 +19,7 @@ class DbHelper(val context: Context, val factory:SQLiteDatabase.CursorFactory? )
     }
 
     //регистрируем нового пользователя в нашей базе данных
-    fun addUser(user:User){
+    fun addUser(user: User){
         val values = ContentValues()
         values.put("login", user.login) // подставляем данные в sql запрос
         values.put("email", user.email)

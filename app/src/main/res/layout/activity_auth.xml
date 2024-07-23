@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="#201E28"
 
-    tools:context=".AuthActivity">
+    tools:context=".presentation.activities.AuthActivity">
 
     <TextView
         android:layout_width="wrap_content"

@@ -31,24 +31,11 @@
             android:background="@drawable/shape_rounded_variants_find"
             >
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:srcCompat="@drawable/shapefind"
-                android:layout_marginStart="12dp"
-                />
-
-            <EditText
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:hint="Напишите название телеканала"
-                android:textColorHint="#808185"
-                android:textSize="16sp"
-                />
+            <SearchView
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:queryHint="Введите название канала" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

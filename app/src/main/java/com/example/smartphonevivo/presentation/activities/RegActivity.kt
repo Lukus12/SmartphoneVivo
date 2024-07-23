@@ -1,4 +1,4 @@
-package com.example.smartphonevivo
+package com.example.smartphonevivo.presentation.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.smartphonevivo.R
+import com.example.smartphonevivo.domain.models.User
+import com.example.smartphonevivo.presentation.DbHelper
 
 class RegActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
