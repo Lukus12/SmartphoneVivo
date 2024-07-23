@@ -1,84 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/placeHolder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#201E28"
+    tools:context=".presentation.activities.MainActivity">
 
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_bold"
-        android:textColor="#fdfdfd"
-        android:layout_gravity="center"
-        android:layout_marginTop="170dp"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:text="Регистрация нового\n\t\t\t\t\t\t\t\t\tаккаунта" />
-
-    <EditText
-        android:id="@+id/userLogin"
-        android:layout_width="220dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textColorHint="#6a6a6a"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:textColor="#fdfdfd"
-        android:hint="Введите логин" />
-
-    <EditText
-        android:id="@+id/userEmail"
-        android:layout_width="220dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:textColorHint="#6a6a6a"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:textColor="#fdfdfd"
-        android:hint="Введите email" />
-
-    <EditText
-        android:id="@+id/userPass"
-        android:layout_width="220dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:textColorHint="#6a6a6a"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:textColor="#fdfdfd"
-        android:hint="Введите пароль" />
-
-    <Button
-        android:id="@+id/buttonReg"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:text="Зарегистрироваться"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:textColor="#271F08"
-        android:layout_gravity="center"
-        android:backgroundTint="#e26"
-        android:layout_marginTop="30dp" />
-
-    <TextView
-        android:id="@+id/TransToAuth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:fontFamily="@font/inter"
-        android:text="Авторизироваться"
-        android:textColor="#fdfdfd"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

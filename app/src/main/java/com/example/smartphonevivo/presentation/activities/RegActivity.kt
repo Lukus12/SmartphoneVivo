@@ -1,4 +1,4 @@
-package com.example.smartphonevivo
+package com.example.smartphonevivo.presentation.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,13 +10,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.smartphonevivo.R
+import com.example.smartphonevivo.domain.models.User
+import com.example.smartphonevivo.presentation.DbHelper
 
-class MainActivity : AppCompatActivity() {
+class RegActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        setContentView(R.layout.activity_reg)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.placeHolder)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                 userEmail.text.clear()
                 userPass.text.clear()
 
-                val intent = Intent(this, ItemsActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
         }

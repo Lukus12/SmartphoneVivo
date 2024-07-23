@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/placeHolder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/gray"
+        android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,24 +31,11 @@
             android:background="@drawable/shape_rounded_variants_find"
             >
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:srcCompat="@drawable/shapefind"
-                android:layout_marginStart="12dp"
-                />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Напишите название телеканала"
-                android:textColor="#808185"
-                android:textSize="16sp"
-                />
+            <SearchView
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:queryHint="Введите название канала" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -57,13 +44,18 @@
         android:layout_height="56dp"
         android:orientation="horizontal"
         android:background="#343438"
-        android:gravity="center"
         >
 
         <com.google.android.material.tabs.TabLayout
-            android:layout_width="330dp"
+            android:id="@+id/tabLayout"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:background="#343438">
+            android:background="#343438"
+            android:layout_marginStart="20dp"
+            app:tabSelectedTextColor="#e26"
+            app:tabIndicatorColor="#e26"
+            app:tabTextColor="#808185"
+            >
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -77,21 +69,13 @@
 
         </com.google.android.material.tabs.TabLayout>
 
-        <Button
-            android:id="@+id/btGetResponse"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:textSize="10sp"
-            />
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/itemsList"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="20dp" />
+        android:layout_height="match_parent" />
+
+
 </LinearLayout>

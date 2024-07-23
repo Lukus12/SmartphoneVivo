@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SmartphoneVivo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="track_selection_title">Select tracks</string>
+    <string name="exo_track_selection_title_video">vid</string>
+
+    <string name="video_quality_720p">720p</string>
+    <string name="video_quality_1080p">1080p</string>
+    <string name="video_quality_4k">4K</string>
 </resources>
