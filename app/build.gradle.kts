@@ -46,12 +46,17 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation("com.google.android.exoplayer:extension-okhttp:2.19.1")
-    implementation("androidx.room:room-coroutines:2.1.0-alpha04")
+
+    implementation ("androidx.room:room-coroutines:2.1.0-alpha04")
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("androidx.fragment:fragment-ktx:1.8.0")
+
+    implementation ("androidx.media3:media3-exoplayer:1.3.1")
+    implementation ("androidx.media3:media3-ui:1.3.1")
+    implementation ("androidx.media3:media3-datasource-okhttp:1.3.1")
+    implementation ("androidx.media3:media3-exoplayer-hls:1.3.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
 }
