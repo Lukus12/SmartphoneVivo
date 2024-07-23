@@ -1,16 +1,20 @@
 package com.example.smartphonevivo.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageButton
 import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smartphonevivo.Item
 import com.example.smartphonevivo.MainViewModel
+import com.example.smartphonevivo.R
 import com.example.smartphonevivo.adapters.ItemsAdapter
 import com.example.smartphonevivo.databinding.FragmentAllBinding
 
@@ -26,22 +30,12 @@ class AllFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
-    private val c = 1
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initItemsListOne()
 
         //получаем отпаршеный список, когда прогружается вьюшка
-        /*if (model.searchCh.value.isNullOrEmpty()) {
-            model.liveDataList.observe(viewLifecycleOwner){
-                initItemsListTwo(it)
-            }
-        }
-        else {
-            model.searchCh.observe(viewLifecycleOwner){
-                initItemsListTwo(it)
-            }
-        }*/
 
         model.liveDataList.observe(viewLifecycleOwner){
             initItemsListTwo(it)
@@ -54,6 +48,7 @@ class AllFragment : Fragment() {
     }
 
     private fun initItemsListTwo(items:List<Item>) = with(binding){
+
         itemsList.adapter = ItemsAdapter(items)
 
     }
