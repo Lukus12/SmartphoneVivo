@@ -1,4 +1,5 @@
 package com.example.smartphonevivo.adapters
+import android.content.Context
 import com.squareup.picasso.Picasso
 
 import android.view.LayoutInflater
@@ -11,7 +12,7 @@ import com.example.smartphonevivo.Item
 import com.example.smartphonevivo.R
 
 //класс, который подставляет в поля дизайна item_in_list значения из элементов списка Item из ItemsActivity
-class ItemsAdapter(private var items:List<Item>): RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
+class ItemsAdapter(private val context: Context, private var items:List<Item>): RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
 
     //view - это наш дизайн, например, item_in_list.xml
     class MyViewHolder(view:View): RecyclerView.ViewHolder(view){
