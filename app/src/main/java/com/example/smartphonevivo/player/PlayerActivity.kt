@@ -30,7 +30,7 @@ class PlayerActivity : AppCompatActivity() {
     private var isBarAnimating = false
     private var isShowingTrackSelectionDialog = false
     private var wasPaused = false
-    private var hasJustChangedQuality = false
+    private var hasJustChangedTrack = false
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,22 +59,18 @@ class PlayerActivity : AppCompatActivity() {
                     wasPaused = true
                 } else {
                     if(wasPaused){
-                        if (!hasJustChangedQuality) {
-                            exoPlayer.setMediaItem(mediaItem)
+                        if (!hasJustChangedTrack) {
+                            exoPlayer.seekToDefaultPosition()
                             wasPaused = false
-                            hasJustChangedQuality = true
+                            hasJustChangedTrack = true
                         }
-                        else if(hasJustChangedQuality){
-                            hasJustChangedQuality = false
+                        else{
+                            hasJustChangedTrack = false
                             wasPaused = false
                         }
                     }
                 }
             }
-            /*override fun onTracksChanged(tracks: Tracks) {
-                super.onTracksChanged(tracks)
-                hasJustChangedQuality = true
-            }*/
         })
 
         window.setFlags(
@@ -194,14 +190,14 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
-    /*override fun onWindowFocusChanged(hasFocus: Boolean) {
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (!hasFocus) {
             exoPlayer.pause()
         } else {
             exoPlayer.play()
         }
-    }*/
+    }
 
     override fun onStop() {
         super.onStop()
