@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="#201E28"
 
-    tools:context=".RegActivity">
+    tools:context=".presentation.activities.RegActivity">
 
     <TextView
         android:layout_width="wrap_content"

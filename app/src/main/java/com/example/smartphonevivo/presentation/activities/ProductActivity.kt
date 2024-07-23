@@ -1,10 +1,11 @@
-package com.example.smartphonevivo
+package com.example.smartphonevivo.presentation.activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.smartphonevivo.R
 
 
 /*Этот класс не нужен для проекта, но может послужить примером того

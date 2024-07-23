@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    android:layout_width="354dp"
+    android:layout_width="match_parent"
     android:layout_height="76dp"
     android:background="@drawable/shape_rounded_variants"
     android:gravity="center_vertical"
@@ -35,15 +36,6 @@
             android:textStyle="bold"
             />
 
-        <TextView
-            android:id="@+id/item_list_desc"
-            android:layout_width="98dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="4dp"
-            android:textSize="15sp"
-            android:textColor="#FFFFFF"
-            android:text="TextView" />
-
     </LinearLayout>
 
     <ImageButton
@@ -51,7 +43,10 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
-    />
+        android:background="@drawable/shape_rounded_variants"
+        android:rotationX="-4"
+        android:rotationY="-2"
+        android:transformPivotX="12dp" />
 
 
 </LinearLayout>

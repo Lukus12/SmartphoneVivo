@@ -1,4 +1,4 @@
-package com.example.smartphonevivo.fragments
+package com.example.smartphonevivo.presentation.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.smartphonevivo.Item
-import com.example.smartphonevivo.MainViewModel
-import com.example.smartphonevivo.adapters.ItemsAdapter
+import com.example.smartphonevivo.domain.models.Channel
+import com.example.smartphonevivo.presentation.MainViewModel
+import com.example.smartphonevivo.presentation.adapters.ItemsAdapter
 import com.example.smartphonevivo.databinding.FragmentAllBinding
 
 
 class AllFragment : Fragment() {
     private lateinit var binding: FragmentAllBinding
-    private val model:MainViewModel by activityViewModels()
+    private val model: MainViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,8 +39,8 @@ class AllFragment : Fragment() {
         itemsList.layoutManager = LinearLayoutManager(activity) // тут можно изменить то, как отображается наш список верт/гор
     }
 
-    private fun initItemsListTwo(items:List<Item>) = with(binding){
-        itemsList.adapter = ItemsAdapter(items)
+    private fun initItemsListTwo(items:List<Channel>) = with(binding){
+        itemsList.adapter = ItemsAdapter(requireContext(),items)
     }
 
     companion object {
