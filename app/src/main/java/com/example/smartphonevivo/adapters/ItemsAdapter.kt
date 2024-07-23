@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 //класс, который подставляет в поля дизайна item_in_list значения из элементов списка Item из ItemsActivity
 class ItemsAdapter(private var items:List<Item>): RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
 
-    //view - это наш дизайн, например, item_in_list.xml п
+    //view - это наш дизайн, например, item_in_list.xml
     class MyViewHolder(view:View): RecyclerView.ViewHolder(view){
 
         val image: ImageView = view.findViewById(R.id.item_list_image)
