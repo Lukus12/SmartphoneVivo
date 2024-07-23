@@ -1,10 +1,10 @@
 package com.example.smartphonevivo.adapters
-import android.content.Context
 import com.squareup.picasso.Picasso
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +19,7 @@ class ItemsAdapter(private var items:List<Item>): RecyclerView.Adapter<ItemsAdap
 
         val image: ImageView = view.findViewById(R.id.item_list_image)
         val title: TextView = view.findViewById(R.id.item_list_title)
+        val fav : ImageButton = view.findViewById(R.id.item_list_favourites)
     }
     // обрабока дизайна
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
