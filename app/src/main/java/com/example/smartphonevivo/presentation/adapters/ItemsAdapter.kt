@@ -9,9 +9,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smartphonevivo.Item
 import com.example.smartphonevivo.R
-
 import com.example.smartphonevivo.domain.models.Channel
 import com.example.smartphonevivo.presentation.activities.PlayerActivity
 import com.squareup.picasso.Picasso
