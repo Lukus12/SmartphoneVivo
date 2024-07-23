@@ -136,7 +136,6 @@ class MainFragment : Fragment() {
                 channelObject.getString("name_ru"),
                 channelObject.getString("image"),
                 channelObject.getString("url"),
-                fav = false
             )
             list.add(item)
         }

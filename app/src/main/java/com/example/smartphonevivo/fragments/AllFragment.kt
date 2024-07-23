@@ -40,7 +40,7 @@ class AllFragment : Fragment() {
     }
 
     private fun initItemsListTwo(items:List<Item>) = with(binding){
-        itemsList.adapter = ItemsAdapter(requireContext(),items)
+        itemsList.adapter = ItemsAdapter(items)
     }
 
     companion object {
