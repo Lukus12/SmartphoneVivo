@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "87241441127",
+    "project_id": "smarthonevivo-ce476",
+    "storage_bucket": "smarthonevivo-ce476.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87241441127:android:f66ad785f3e9dd60e1b9c2",
+        "android_client_info": {
+          "package_name": "com.example.smartphonevivo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBiaTqb1NFSfleg9yjk09ujTooEEXrwzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
