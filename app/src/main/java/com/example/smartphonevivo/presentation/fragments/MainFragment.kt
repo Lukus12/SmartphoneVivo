@@ -1,6 +1,6 @@
 package com.example.smartphonevivo.presentation.fragments
 
-import android.R
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -32,9 +32,6 @@ import okhttp3.Response
 import java.io.IOException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
-
-
-
 
 
 class MainFragment : Fragment() {
@@ -74,11 +71,16 @@ class MainFragment : Fragment() {
     }
     //переключение вкладок
     private fun init()= with(binding){
+
+
+        search.setIconifiedByDefault(false)
+
         val adapter = VpAdapter(activity as FragmentActivity, fList)
         vp.adapter = adapter
         TabLayoutMediator(tabLayout, vp){
                 tab, pos -> tab.text = tList[pos]
         }.attach()
+
 
         vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {

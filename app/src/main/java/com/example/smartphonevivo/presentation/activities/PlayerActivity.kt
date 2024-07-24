@@ -1,8 +1,5 @@
 package com.example.smartphonevivo.presentation.activities
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
 import android.content.DialogInterface
 import android.content.pm.ActivityInfo
 import android.graphics.Color
@@ -20,19 +17,21 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import com.example.smartphonevivo.R
-import com.example.smartphonevivo.presentation.playerLibrary.TrackSelectionDialog
 import com.squareup.picasso.Picasso
-
+import com.example.smartphonevivo.presentation.playerLibrary.TrackSelectionDialog
 
 class PlayerActivity : AppCompatActivity() {
     private lateinit var playerView: PlayerView
     private lateinit var exoPlayer: ExoPlayer
     private var isBarAnimating = false
     private var isShowingTrackSelectionDialog = false
+    private var wasPaused = false
+    private var hasJustChangedTrack = false
 
     @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +52,28 @@ class PlayerActivity : AppCompatActivity() {
         exoPlayer.prepare()
         exoPlayer.play()
 
+
+        exoPlayer.addListener(object : Player.Listener {
+            override fun onIsPlayingChanged(isPlaying: Boolean) {
+                super.onIsPlayingChanged(isPlaying)
+                if (!isPlaying) {
+                    wasPaused = true
+                } else {
+                    if(wasPaused){
+                        if (!hasJustChangedTrack) {
+                            exoPlayer.seekToDefaultPosition()
+                            wasPaused = false
+                            hasJustChangedTrack = true
+                        }
+                        else{
+                            hasJustChangedTrack = false
+                            wasPaused = false
+                        }
+                    }
+                }
+            }
+        })
+
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -62,7 +83,6 @@ class PlayerActivity : AppCompatActivity() {
             it.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
 
-        playerView.hideController()
         playerView.controllerShowTimeoutMs = 3000
 
         val imageURLWidget: ImageView = playerView.findViewById(R.id.tv_image)
@@ -73,6 +93,8 @@ class PlayerActivity : AppCompatActivity() {
         nameTVWidget.setShadowLayer(1.5f, 0f, 1f, Color.BLACK)
 
         //animating
+        val pauseButton = playerView.findViewById<ImageView>(R.id.exo_play_pause)
+        pauseButton.bringToFront()
         val topBar = playerView.findViewById<ConstraintLayout>(R.id.top_bar)
         val bottomBar = playerView.findViewById<ConstraintLayout>(R.id.bottom_bar)
         playerView.setOnClickListener {
@@ -81,10 +103,12 @@ class PlayerActivity : AppCompatActivity() {
                     playerView.hideController()
                     animateHideBar(topBar)
                     animateHideBar(bottomBar)
+                    hidePauseButton(pauseButton)
                 } else {
                     playerView.showController()
                     animateShowBar(topBar)
                     animateShowBar(bottomBar)
+                    showPauseButton(pauseButton)
                 }
             }
         }
@@ -118,44 +142,52 @@ class PlayerActivity : AppCompatActivity() {
         })
     }
 
+    private fun showPauseButton(pauseButton: ImageView) {
+        pauseButton.alpha = 0f
+        pauseButton.visibility = ImageView.VISIBLE
+        pauseButton.animate().alpha(1f).setDuration(250).start()
+    }
+
+    private fun hidePauseButton(pauseButton: ImageView) {
+        pauseButton.animate().alpha(0f).setDuration(250).withEndAction {
+            pauseButton.visibility = ImageView.GONE
+        }.start()
+    }
+
     private fun animateShowBar(bar: ConstraintLayout) {
         if (bar.visibility == ConstraintLayout.GONE) {
             bar.visibility = ConstraintLayout.VISIBLE
         }
-        bar.translationY = if (bar.id == R.id.top_bar) -bar.height.toFloat() else bar.height.toFloat()
-        ObjectAnimator.ofFloat(bar, "translationY", 0f).apply {
-            duration = 250
-            interpolator = AccelerateDecelerateInterpolator()
-            addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator) {
-                    isBarAnimating = true
-                }
 
-                override fun onAnimationEnd(animation: Animator) {
-                    isBarAnimating = false
-                }
-            })
-            start()
-        }
+        bar.translationY = if (bar.id == R.id.top_bar) -bar.height.toFloat() else bar.height.toFloat()
+
+        bar.animate()
+            .translationY(0f)
+            .setDuration(250)
+            .setInterpolator(AccelerateDecelerateInterpolator())
+            .withStartAction {
+                isBarAnimating = true
+            }
+            .withEndAction {
+                isBarAnimating = false
+            }
+            .start()
     }
 
     private fun animateHideBar(bar: ConstraintLayout) {
         if (bar.visibility == ConstraintLayout.VISIBLE) {
-            ObjectAnimator.ofFloat(bar, "translationY", if (bar.id == R.id.top_bar) -bar.height.toFloat() else bar.height.toFloat()).apply {
-                duration = 250
-                interpolator = AccelerateDecelerateInterpolator()
-                addListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationStart(animation: Animator) {
-                        isBarAnimating = true
-                    }
-
-                    override fun onAnimationEnd(animation: Animator) {
-                        bar.visibility = ConstraintLayout.GONE
-                        isBarAnimating = false
-                    }
-                })
-                start()
-            }
+            bar.animate()
+                .translationY(if (bar.id == R.id.top_bar) -bar.height.toFloat() else bar.height.toFloat())
+                .setDuration(250)
+                .setInterpolator(AccelerateDecelerateInterpolator())
+                .withStartAction {
+                    isBarAnimating = true
+                }
+                .withEndAction {
+                    bar.visibility = ConstraintLayout.GONE
+                    isBarAnimating = false
+                }
+                .start()
         }
     }
 
